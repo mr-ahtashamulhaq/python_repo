@@ -24,7 +24,7 @@ class vehicle:
 
 class car (vehicle):
   def __init__(self,brand, model):
-    # super().__init__(brand)
+    super().__init__(brand)
     super().__init__ (brand)
     self.model = model
   
@@ -40,7 +40,7 @@ class Parent:
 
 class Child(Parent):
   def say(self):
-      super().say()  # Call Parent's say()
+      super().say()
       print("I am the Child")
 
 c = Child()
