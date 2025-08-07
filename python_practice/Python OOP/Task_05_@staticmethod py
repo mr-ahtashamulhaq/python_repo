@@ -1,0 +1,16 @@
+"""Design a class as described below:
+
+Class Name: Addition
+Method:
+Function Name: add
+Parameters: a (int), b (int)
+Return Type: int
+Static: Yes (Use the @staticmethod decorator)
+Task: Returns the sum of the values given as parameters"""
+
+class Addition:
+    @staticmethod
+    def add(a,b) ->int:
+        return a+b
+    
+print(Addition.add(2,3))
