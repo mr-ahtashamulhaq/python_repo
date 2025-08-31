@@ -20,20 +20,34 @@ class Solution:
             current_level = []
             size  = len(queue)
 
+            #loop will used just for making level by level. other remove it and directly append in result
             for i in range(size):
                 e = queue.popleft()
+                current_level.append(e.val)
 
                 if e.left is not None:
                     queue.append(e.left)
                 if e.right is not None:
                     queue.append(e.right)
 
-                current_level.append(e.val)
 
             result.append(current_level)
+        return result
 
+
+        # To print without level by level comment above while loop and run this
+        """
+        while queue:
+            e = queue.popleft()
+            result.append(e.val)
+
+            if e.left is not None:
+                queue.append(e.left)
+            if e.right is not None:
+                queue.append(e.right)
 
         return result
+        """
     
 obj = Solution()
 l = [10,20,30,40,50,60,70]

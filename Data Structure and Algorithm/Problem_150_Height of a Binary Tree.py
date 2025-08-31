@@ -1,6 +1,7 @@
 """Given the root of a binary tree, return its maximum depth.
 
 A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node."""
+from collections import deque
 class Node:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -11,12 +12,34 @@ class Solution:
     def maxDepth(self, root):
         if root is None:
             return 0   # empty tree has depth 0
-
+        
+        # Using Recursion
         left_depth = self.maxDepth(root.left)
         right_depth = self.maxDepth(root.right)
 
         return 1 + max(left_depth, right_depth)
+    
 
+        # Using BFS Traversal - Comment just Recursion to run this 
+        """ 
+        queue = deque([])
+        height = 0
+        queue.append(root)
+
+        while queue:
+            size  = len(queue)
+            height +=1
+
+            for _ in range(size):
+                e = queue.popleft()
+
+                if e.left is not None:
+                    queue.append(e.left)
+                if e.right is not None:
+                    queue.append(e.right)
+
+        return height
+        """
         
 obj = Solution()
 l = [10,20,30,40,50,60,70]
