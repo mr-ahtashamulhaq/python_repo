@@ -1,0 +1,46 @@
+"""Given an undirected, weighted graph with V vertices numbered from 0 to V-1 and E edges, represented by 2d array edges[][], where edges[i]=[u, v, w] represents the edge between the nodes u and v having w edge weight.
+You have to find the shortest distance of all the vertices from the source vertex src, and return an array of integers where the ith element denotes the shortest distance between ith node and source vertex src.
+
+Note: The Graph is connected and doesn't contain any negative weight edge."""
+import heapq
+class Solution:
+    # DJIKSTRA Algorithm --> Returns shortest distances from src to all other vertices
+    def dijkstra(self, V, edges, src):
+
+        adj_list = [[] for _ in range(V)]
+        for u, v, d in edges:
+            adj_list[u].append([v, d])
+            adj_list[v].append([u, d])  # graph is undirected
+
+        # Distance array: start with infinity, except src = 0
+        distance = [float("inf")] * V
+        distance[src] = 0
+
+        # Min-Heap with (distance, node) --> heap ensures smallest distance is always processed first
+        priority_queue = [[0, src]]
+
+        while priority_queue:
+            curr_dist, node = heapq.heappop(priority_queue)
+
+            # if we already found a shorter path earlier, skip
+            if curr_dist > distance[node]:
+                continue
+
+            # Relaxation step --> Mean for every neighbor, check if going through node gives a shorter distance → if yes, update and push to heap.
+            
+            for adjNode, weight in adj_list[node]:
+                new_dist = curr_dist + weight
+                if new_dist < distance[adjNode]:
+                    distance[adjNode] = new_dist
+                    heapq.heappush(priority_queue, [new_dist, adjNode])
+
+        return distance
+                         
+          
+obj = Solution()
+V = 5
+edges = [[0, 1, 4], [0, 2, 8], [1, 4, 6], [2, 3, 2], [3, 4, 10]]
+src = 0
+print( obj.dijkstra(V , edges , src) )
+
+# Output : [0, 4, 8, 10, 10]
